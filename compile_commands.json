@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/michael/Documents/reactive/build",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\clang-cl.exe  /nologo -TP -I..\\src /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -MDd /Fosrc\\ch01\\CMakeFiles\\ch01.dir\\main.cpp.obj /FdTARGET_COMPILE_PDB -c C:\\Users\\michael\\Documents\\reactive\\src\\ch01\\main.cpp",
+  "file": "C:/Users/michael/Documents/reactive/src/ch01/main.cpp"
+}
+]
