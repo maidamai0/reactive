@@ -25,15 +25,15 @@ auto Compose(F&& f, Fs... fs) {
     return [=](auto x) { return f(Compose(fs...)(x)); };
 }
 
-template <typename F, typename G>
-auto operator|(F&& f, G&& g) {
-    return Compose(std::forward<F>(f), std::forward<G>(g));
-}
+// template <typename F, typename G>
+// auto operator|(F&& f, G&& g) {
+//     return Compose(std::forward<F>(f), std::forward<G>(g));
+// }
 
-template <typename F, typename... Fs>
-auto operator|(F&& f, Fs... fs) {
-    return operator|(std::forward<F>(f), fs...);
-}
+// template <typename F, typename... Fs>
+// auto operator|(F&& f, Fs... fs) {
+//     return operator|(std::forward<F>(f), fs...);
+// }
 
 template <typename C, typename Fn>
 auto Map(C r, Fn&& f) {
