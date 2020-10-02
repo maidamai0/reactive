@@ -197,7 +197,7 @@ struct ExprItem {
         return value_;
     }
 
-    [[nodiscard]] std::string ToString() const {
+    auto ToString() const {
         switch (kind_) {
             case ExprKind::kOperator:
                 std::cout << magic_enum::enum_name(kind_).data() << std::endl;
@@ -205,8 +205,6 @@ struct ExprItem {
             case ExprKind::kValue: std::cout << value_ << std::endl; break;
             default: assert(false && "invalid kind");
         }
-
-        return {};
     }
 
    private:

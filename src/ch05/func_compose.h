@@ -43,15 +43,14 @@ auto Map(C r, Fn&& f) {
 
 template <typename C, typename Fn>
 auto Filter(C c, Fn&& f) {
-    C ret(c.size());
+    C ret;
     auto first = std::begin(c);
     auto last = std::end(c);
-    auto result = std::begin(ret);
 
     auto inserted = false;
     while (last != first) {
         if (f(*first)) {
-            *(result++) = *first;
+            ret.push_back(*first);
             inserted = true;
         }
         ++first;

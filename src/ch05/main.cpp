@@ -26,11 +26,19 @@ auto main() -> int {
                          [](auto expr) { return expr.GetKind() != ExprKind::kOperator; });
         auto map = Map(
             cd,
-            [](auto& item) { item.SetValue(item.GetValue() * 3); } |
+            [](auto& item) {
+                item.SetValue(item.GetValue() * 3);
+                return item;
+            } |
                 [](auto& item) {
                     const auto v = item.GetValue();
                     item.SetValue(v * v);
+                    return item;
                 });
+
+        for (const auto& item : map) {
+            item.ToString();
+        }
     }
 
     return 0;
