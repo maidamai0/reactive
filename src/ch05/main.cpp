@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "book_expr_ eval.h"
+#include "ch05/func_compose.h"
 
 auto main() -> int {
     BinaryExpression plus(
@@ -18,6 +19,18 @@ auto main() -> int {
     {
         // flattern visitor
         std::cout << "Flattern evaluate " << Evalute(&plus) << std::endl;
+    }
+
+    {
+        auto cd = Filter(ExprList(&plus),
+                         [](auto expr) { return expr.GetKind() != ExprKind::kOperator; });
+        auto map = Map(
+            cd,
+            [](auto& item) { item.SetValue(item.GetValue() * 3); } |
+                [](auto& item) {
+                    const auto v = item.GetValue();
+                    item.SetValue(v * v);
+                });
     }
 
     return 0;

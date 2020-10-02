@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 project(reactive)
-
+set(CMAKE_CXX_STANDARD 17)
+find_package(magic_enum CONFIG REQUIRED)
+link_libraries(magic_enum::magic_enum)
 add_subdirectory(src)

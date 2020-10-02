@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "func_compose.h"
+#include "magic_enum.hpp"
 
 enum class Operator : unsigned char { kIllegal, kPlus, kMius, kMul, kDiv, kUnaryPlus, kBinaryPlus };
 
@@ -36,7 +37,7 @@ class Number final : public Expression {
         num_ = num;
     }
 
-    auto Get() const {
+    [[nodiscard]] auto Get() const {
         return num_;
     }
 
@@ -56,15 +57,15 @@ class BinaryExpression final : public Expression {
         : left_(std::move(left)), right_(std::move(right)), op_(op) {}
     ~BinaryExpression() override = default;
 
-    auto GetOperator() const {
+    [[nodiscard]] auto GetOperator() const {
         return op_;
     }
 
-    auto GetLeft() const {
+    [[nodiscard]] auto GetLeft() const {
         return left_;
     }
 
-    auto getRight() const {
+    [[nodiscard]] auto getRight() const {
         return right_;
     }
 
@@ -85,11 +86,11 @@ class UnaryExpression final : public Expression {
     UnaryExpression(expr_ptr right, Operator op) : right_(std::move(right)), op_(op) {}
     ~UnaryExpression() override = default;
 
-    auto GetOperator() const {
+    [[nodiscard]] auto GetOperator() const {
         return op_;
     }
 
-    auto getRight() const {
+    [[nodiscard]] auto getRight() const {
         return right_;
     }
 
@@ -174,7 +175,7 @@ struct ExprItem {
     explicit ExprItem(double num) : kind_(ExprKind::kValue), value_(num) {}
     explicit ExprItem(Operator op) : kind_(ExprKind::kOperator), operator_(op) {}
 
-    auto GetKind() const {
+    [[nodiscard]] auto GetKind() const {
         return kind_;
     }
 
@@ -183,7 +184,7 @@ struct ExprItem {
         kind_ = ExprKind::kOperator;
     }
 
-    auto GetOperator() const {
+    [[nodiscard]] auto GetOperator() const {
         return operator_;
     }
 
@@ -192,11 +193,21 @@ struct ExprItem {
         kind_ = ExprKind::kValue;
     }
 
-    auto GetValue() const {
+    [[nodiscard]] auto GetValue() const {
         return value_;
     }
 
-    std::string ToString() const {}
+    [[nodiscard]] std::string ToString() const {
+        switch (kind_) {
+            case ExprKind::kOperator:
+                std::cout << magic_enum::enum_name(kind_).data() << std::endl;
+                break;
+            case ExprKind::kValue: std::cout << value_ << std::endl; break;
+            default: assert(false && "invalid kind");
+        }
+
+        return {};
+    }
 
    private:
     ExprKind kind_{ExprKind::kIllegalExpr};
